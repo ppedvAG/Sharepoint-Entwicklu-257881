@@ -22,6 +22,9 @@ export default class SpFxHttpClientDemo extends React.Component<ISpFxHttpClientD
         </div>
         <div className={styles.buttons}>
           <button type="button" onClick={this.onGetListItemsClicked}>Get Countries</button>
+          <button type="button" onClick={this.onAddListItemClicked}>Add List Item</button>
+          <button type="button" onClick={this.onUpdateListItemClicked}>Update List Item</button>
+          <button type="button" onClick={this.onDeleteListItemClicked}>Delete List Item</button>
         </div>
         <div>
           <ul>
@@ -42,5 +45,23 @@ export default class SpFxHttpClientDemo extends React.Component<ISpFxHttpClientD
 
 
     if (this.props.onGetListItems) this.props.onGetListItems();
+  }
+
+  private onAddListItemClicked = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+
+    if (this.props.onAddListItem) this.props.onAddListItem();
+  }
+
+  private onUpdateListItemClicked = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+
+    if (this.props.onUpdateListItem) this.props.onUpdateListItem();
+  }
+
+  private onDeleteListItemClicked = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault();
+
+    if (this.props.onDeleteListItem) this.props.onDeleteListItem();
   }
 }
