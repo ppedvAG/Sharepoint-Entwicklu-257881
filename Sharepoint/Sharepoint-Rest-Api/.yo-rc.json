@@ -1,0 +1,18 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.17.1",
+    "sdksVersions": {},
+    "version": "1.21.1",
+    "libraryName": "npm-install-gulp-cli-globalnpm-install",
+    "libraryId": "85b529e9-a5ee-43c8-a5d0-ca743d06e8bb",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "npm install gulp-cli --globalnpm install ",
+    "solutionShortDescription": "npm install gulp-cli --globalnpm install  description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

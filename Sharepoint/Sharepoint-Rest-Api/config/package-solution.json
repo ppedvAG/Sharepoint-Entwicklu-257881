@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "npm-install-gulp-cli-globalnpm-install-client-side-solution",
+    "id": "85b529e9-a5ee-43c8-a5d0-ca743d06e8bb",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.21.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "npm install gulp-cli --globalnpm install  description"
+      },
+      "longDescription": {
+        "default": "npm install gulp-cli --globalnpm install  description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "npm-install-gulp-cli-globalnpm-install Feature",
+        "description": "The feature that activates elements of the npm-install-gulp-cli-globalnpm-install solution.",
+        "id": "3ddb820d-2784-42f2-89bd-2143d5aba519",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/npm-install-gulp-cli-globalnpm-install.sppkg"
+  }
+}
