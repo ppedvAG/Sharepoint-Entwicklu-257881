@@ -17,12 +17,12 @@ type Task = {
   lables: string[];
 }
 
-const inputTypes = ['checkbox', 'submit', 'date', 'number', 'text'];
+const inputTypes = ['checkbox', 'submit', 'date', 'number', 'text'] as const;
 type InputType = (typeof inputTypes)[number];
 
-// function isInputType(typeOrTag: string): typeOrTag is InputType {
-//   return inputTypes.includes(typeOrTag as InputType);
-// }
+function isInputType(typeOrTag: string): typeOrTag is InputType {
+  return inputTypes.includes(typeOrTag as InputType);
+}
 // function createElement(
 //   parent: HTMLElement,
 //   type: InputType, 
@@ -57,24 +57,51 @@ type InputType = (typeof inputTypes)[number];
 
 function createElement(
   parent: HTMLElement,
+  type: InputType,
+  placehoder?: string
+): HTMLInputElement;
+function createElement(
+  parent: HTMLElement,
   tagName: keyof HTMLElementTagNameMap,
-  text?: string) {
+  text?: string): HTMLElement;
+function createElement(
+  parent: HTMLElement,
+  typeOrTagName: InputType | keyof HTMLElementTagNameMap,
+  text?: string
+): HTMLElement {
 
-  // Erzeugen ein Neues HTML ELement mit dem tagName als Typ
-  const createdElement = document.createElement(tagName);
-  // Überprüfen, ob ein text mitgegeben wurde, wenn ja, setzten wir ihn ins innerHTML
-  // if(text) {
-  //   createdElement.innerHTML = text;
-  // }
-  // Kurzschreibweise
-  text && (createdElement.innerHTML = text);
+  if (isInputType(typeOrTagName)) {
+    
+    // Erzeugen wir ein neues INPUT HTML Element mit dem text als placeholder
+    // und dem typeOrTagName als Input Typ
+    const createdElement = document.createElement('input') as HTMLInputElement;
+    createdElement.type = typeOrTagName;
 
-  // Erzeugtes Element an das mitgegebene Parent Element anfügen
-  parent.appendChild(createdElement);
-  // Erzeugtes Element zurückgeben
-  return createdElement;
+    // Wenn ein placehoder als text mitgegeben wurde, setzen wir ihn
+    text && (createdElement.setAttribute("placeholder", text))
 
+    // Erzeugtes Element an das mitgegeben Parent Elemtn anfügen
+    parent.appendChild(createdElement);
+    // Erzeugtes Element zurückgeben
+    return createdElement;
+
+  } else {
+    // Erzeugen ein Neues HTML ELement mit dem tagName als Typ
+    const createdElement = document.createElement(typeOrTagName);
+    // Überprüfen, ob ein text mitgegeben wurde, wenn ja, setzten wir ihn ins innerHTML
+    // if(text) {
+    //   createdElement.innerHTML = text;
+    // }
+    // Kurzschreibweise
+    text && (createdElement.innerHTML = text);
+
+    // Erzeugtes Element an das mitgegebene Parent Element anfügen
+    parent.appendChild(createdElement);
+    // Erzeugtes Element zurückgeben
+    return createdElement;
+  }
 }
+
 
 
 
@@ -96,21 +123,19 @@ function createElement(
 // `
 let appRoot = document.querySelector<HTMLDivElement>('#app');
 
+// zweite Variante createElement
 createElement(appRoot as HTMLElement, 'h1', "Deine ToDo Liste");
 let uList = createElement(appRoot as HTMLElement, 'ul') as HTMLUListElement;
 let form = createElement(appRoot as HTMLElement, 'form');
 createElement(form, 'label', "Aufgabe");
-let inputTask = createElement(form, 'input') as HTMLInputElement;
-inputTask.setAttribute("placeholder", "Aufgabe eingeben");
+// erste variante createElement
+let inputTask = createElement(form, 'text', "Aufgabe eingeben");
 createElement(form, 'label', 'Datum');
-let inputDate = createElement(form, 'input') as HTMLInputElement;
-inputDate.setAttribute("type", "date");
+let inputDate = createElement(form, 'date');
 createElement(form, 'label', 'Keywords');
-let inputKeywords = createElement(form, 'input') as HTMLInputElement;
-inputKeywords.setAttribute("placeholder", "Komma sperierte Liste");
+let inputKeywords = createElement(form, 'text', 'Komma serperierte Liste');
 createElement(form, 'label', 'Priortät');
-let inputPrio = createElement(form, 'input') as HTMLInputElement;
-inputPrio.setAttribute("type", "number");
+let inputPrio = createElement(form, 'number');
 inputPrio.setAttribute("min", "0");
 inputPrio.setAttribute("max", "2");
 inputPrio.setAttribute("value", "1");
@@ -123,7 +148,7 @@ const prioMapper: PriorityMapper = ['low', 'default', 'important'];
 submitButton?.addEventListener('click', function (e) {
   // Default Submit action verhindern, welches Server Request auslöst
   e.preventDefault();
-
+  
   const task: Task = {
     id: taskList.length + 1,
     userId: 0,
@@ -136,8 +161,7 @@ submitButton?.addEventListener('click', function (e) {
   taskList.push(task);
 
   let listItem = createElement(uList, 'li') as HTMLLIElement;
-  let checkbox = createElement(listItem, 'input') as HTMLInputElement;
-  checkbox.type = "checkbox";
+  createElement(listItem, 'checkbox');
   createElement(listItem, 'span', task.title);
 })
 
